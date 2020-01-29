@@ -1,0 +1,4 @@
+provider: libvirt
+lxdserver_disk: 120
+lxdserver_ram: 2048
+lxdserver_cpu: 2

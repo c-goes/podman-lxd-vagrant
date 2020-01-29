@@ -1,0 +1,7 @@
+---
+# tasks file for lxd_base
+
+
+- include: install.yml
+- include: zfs_storage.yml
+- include: podman_container.yml

@@ -1,0 +1,45 @@
+---
+# tasks file for podman
+
+- name: add podman ppa
+  apt_repository:
+    repo: ppa:projectatomic/ppa
+    state: absent
+  become: yes
+
+- name: Add an Apt signing key, uses whichever key is at the URL
+  apt_key:
+    url: https://download.opensuse.org/repositories/devel:kubic:libcontainers:stable/xUbuntu_19.10/Release.key
+    state: present
+  become: yes
+
+- apt_repository:
+    repo: deb http://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/xUbuntu_19.10/ /
+    state: present
+  become: yes
+
+- name: Update repositories cache and install podman packages
+  apt:
+    name:
+      - podman
+      - buildah
+      - skopeo
+      - slirp4netns
+      - fuse-overlayfs
+    update_cache: yes
+  become: yes
+
+
+- name: configure storage.conf
+  template:
+    src: storage.conf.j2
+    dest: /etc/containers/storage.conf
+  become: yes
+
+
+- name: rootless pull of an image
+  podman_image:
+    name: docker://nginx
+
+- name: rootless start the nginx container on port 8080
+  command: podman run -d -p 8080:80/tcp --name nginx nginx

@@ -1,0 +1,8 @@
+- hosts: lxdserver
+  roles:
+    - lxd_base
+  
+- hosts: c1
+  roles:
+    - podman
+

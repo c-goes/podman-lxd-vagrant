@@ -1,0 +1,21 @@
+controller ansible_connection=local
+
+[lxdserver]
+172.16.200.10
+
+[lxdserver:vars]
+ansible_ssh_port=22
+lxd_trust_pw='bFcHuX59XVZqSmrRTu2kNrHBZKOYs6kuj9R2sc5L'
+ansible_connection=ssh
+ansible_ssh_user='vagrant'
+ansible_ssh_private_key_file='/vagrant/.vagrant/machines/lxdserver/libvirt/private_key'
+lxd_proxy_host=127.0.0.1:8445
+lxd_zfs_pool=zroot/lxd
+
+[podman]
+c1 num=1 ansible_connection=ssh ansible_host=10.40.1.1
+
+[podman:vars]
+ansible_ssh_common_args='-o ProxyCommand="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i /vagrant/.vagrant/machines/lxdserver/libvirt/private_key -W %h:%p -q vagrant@172.16.200.10"'
+ansible_ssh_private_key_file='/vagrant/sshkey/id_rsa_dev'
+ansible_ssh_user='ubuntu'
