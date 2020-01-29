@@ -1,2 +1,3 @@
 sshkey/
 .vagrant/
+roles/lxd_base/files/lxd.*
