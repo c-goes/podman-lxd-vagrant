@@ -6,5 +6,9 @@ One of the unique features of Podman is to run application containers rootless. 
 
 # Usage
 
+```
 ssh-keygen -t rsa -b 2048 -C "developer" -f sshkey/id_rsa_dev -P '' -q
 vagrant up
+lxc exec c1 -- sudo -u ubuntu --login bash
+# start your containers here
+```
